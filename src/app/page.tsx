@@ -5,13 +5,14 @@ import Menu from "@/components/menu/Menu";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default function Home({ searchParams }: { searchParams: any }) {
+  const page = parseInt(searchParams.page) || 1;
   return (
     <div>
       <Featured />
       <CategoryList />
       <div className="flex gap-[50px]">
-        <CardList />
+        <CardList page={page} />
         <Menu />
       </div>
     </div>

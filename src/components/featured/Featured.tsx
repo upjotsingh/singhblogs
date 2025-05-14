@@ -12,7 +12,7 @@ const Featured = () => {
           <Image src="/p1.jpeg" alt="p1" fill className="object-cover" />
         </div>
         <div className="flex-1 flex flex-col gap-5">
-          <h1 className="text-[40px] ">
+          <h1 className="text-4xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </h1>
           <p className="font-light text-text_color_soft">

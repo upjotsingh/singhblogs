@@ -6,7 +6,7 @@ import MenuCategories from "../menuCategories/MenuCategories";
 
 const Menu = () => {
   return (
-    <div className="flex-[2] mt-[60px]">
+    <div className="flex-[2] mt-[60px] max-lg:hidden">
       <h2 className="text-gray-500 text-[16px] font-[400]">{"What's Hot"}</h2>
       <h1>Most Popular</h1>
       <MenuPosts />

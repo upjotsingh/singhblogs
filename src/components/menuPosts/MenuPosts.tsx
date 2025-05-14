@@ -7,8 +7,8 @@ const MenuPosts: React.FC<{ withImage?: boolean }> = ({
 }) => {
   return (
     <div className="flex flex-col gap-9 mt-9 mb-[60px]">
-      {[1, 2].map(() => (
-        <Link href="/" className="flex items-center gap-5">
+      {[1, 2].map((i) => (
+        <Link key={i} href="/" className="flex items-center gap-5">
           {withImage && (
             <div className="flex-[1] aspect-square relative">
               <Image

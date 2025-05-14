@@ -1,13 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   h1 {
     @apply text-2xl;
     @apply font-medium;
   }
+
   h3 {
     @apply font-medium;
+  }
+}
+
+@layer utilities {
+  .single_page_description>p {
+    @apply text-xl;
+    @apply font-light;
+    @apply mb-5;
+    @apply max-sm:text-lg;
   }
 }
 
@@ -40,10 +51,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 .themeContainer {
   color: var(--textColor);
   background: var(--bg);
 }
+
 .wrapper {
   min-height: 100vh;
   max-width: 1536px;
@@ -52,6 +65,23 @@ a {
   padding-left: 130px;
   padding-right: 130px;
 }
+
+.category-style {
+  background-color: #57c4ff31;
+}
+
+.category-food {
+  background-color: #7fb88133;
+}
+
+.category-culture {
+  background-color: #ffb04f45;
+}
+
+.category-fashion {
+  background-color: #da85c731;
+}
+
 
 @media screen and (max-width: 1536px) {
   .wrapper {
@@ -83,4 +113,12 @@ a {
   .wrapper {
     max-width: 475px;
   }
+}
+
+.ql-container {
+  font-size: 28px !important;
+}
+
+.quill>.ql-container>.ql-editor.ql-blank::before {
+  color: #b3b3b1;
 }

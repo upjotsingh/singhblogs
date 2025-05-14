@@ -51,7 +51,7 @@ const Footer = () => {
           <Image src="/portfolio.png" alt="portfolio" width={18} height={18} />
         </div>
       </div>
-      <div className="flex-[1] flex justify-end gap-[100px] max-lg:gap-[50px] max-md:w-[100%] max-md:justify-between">
+      <div className="flex-[1] flex justify-end gap-[100px] max-lg:gap-[50px] max-md:w-[100%] max-md:justify-between max-sm:text-sm">
         {links.map((item) => (
           <div key={item.title} className="flex flex-col gap-[10px] font-light">
             <span className="font-bold">{item.title}</span>

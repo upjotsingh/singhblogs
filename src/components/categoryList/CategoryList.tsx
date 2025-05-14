@@ -2,7 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const CategoryList = () => {
+const getData = async () => {
+  const res = await fetch("http://localhost:3000/api/categories", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed");
+  }
+  return res.json();
+};
+const CategoryList = async () => {
+  const data: any = await getData();
+
   const categories = [
     {
       name: "Style",
@@ -33,20 +45,23 @@ const CategoryList = () => {
     <div>
       <h1 className="mx-0 my-[50px]">Popular Categories</h1>
       <div className="flex flex-wrap justify-between gap-5">
-        {categories.map((item, i) => (
+        {data?.map((item: any) => (
           <Link
-            href={item.link}
-            key={i}
-            className={`flex items-center gap-[10px] w-[15%] max-xl:w-[20%] max-lg:w-[25%] max-md:wi-[45%] max-sm:w-[100%]  h-16 justify-center rounded-xl ${item.color}`}
+            href={"/blog?cat=food"}
+            key={item.id}
+            className={`flex items-center gap-[10px] w-[15%] capitalize max-xl:w-[20%] max-lg:w-[25%] max-md:wi-[45%] max-sm:w-[100%]  h-16 justify-center rounded-xl category-${item.slug}`}
           >
-            <Image
-              src={item.img}
-              alt={item.name}
-              width={32}
-              height={32}
-              className="h-8 w-8 rounded-[50%]"
-            />
-            {item.name}
+            {item.img && (
+              <Image
+                src={item.img}
+                alt={item.slug}
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded-[50%]"
+              />
+            )}
+
+            {item.title}
           </Link>
         ))}
       </div>
