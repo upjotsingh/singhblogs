@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Card = ({ key, item }: { key: string; item: any }) => {
+const Card = ({ key, item }: { key: string; item: Post }) => {
   return (
     <div className="mb-[50px] flex items-center gap-[50px]" key={key}>
       {item.img && (
@@ -22,9 +22,11 @@ const Card = ({ key, item }: { key: string; item: any }) => {
         <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>
         </Link>
-        <p className="text-lg font-light text-text_color_soft">
-          {item.desc.substring(0, 60)}
-        </p>
+        <div
+          className="text-lg font-light text-text_color_soft"
+          dangerouslySetInnerHTML={{ __html: item.desc || <></> }}
+        />
+
         <Link
           href={`/posts/${item.slug}`}
           className="border-b-[1px] border-b-red-400 w-max px-0 py-[2px]"

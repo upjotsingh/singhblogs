@@ -1,7 +1,12 @@
+"use client";
+import { getCategories } from "@/services/useCategory";
+import { captilizeFirstLetter } from "@/utils/utils";
 import Link from "next/link";
 import React from "react";
 
 const MenuCategories = () => {
+  const { category, isError, isLoading } = getCategories();
+
   const categories = [
     {
       name: "Style",
@@ -30,13 +35,13 @@ const MenuCategories = () => {
   ];
   return (
     <div className="mt-[35px] mb-[60px] flex flex-wrap gap-3">
-      {categories.map((item, i) => (
+      {category?.map((item, i) => (
         <Link
           key={i}
-          href={item.link}
-          className={`px-[25px] py-[10px] rounded-[10px] text-sm ${item.color}  `}
+          href={`/blog?cat=${item.slug}`}
+          className={`px-[25px] py-[10px] rounded-[10px] text-sm category-${item.slug}  `}
         >
-          {item.name}
+          {captilizeFirstLetter(item.title)}
         </Link>
       ))}
     </div>

@@ -41,11 +41,11 @@ const AuthLinks = () => {
           <Link href="/">Homepage</Link>
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
-          {status === "notauthenticated" ? (
+          {status === "unauthenticated" ? (
             <Link href="/">Login</Link>
           ) : (
             <>
-              <Link href="/">Write</Link>
+              <Link href="/write">Write</Link>
               <span className="cursor-pointer" onClick={() => signOut()}>
                 Logout
               </span>

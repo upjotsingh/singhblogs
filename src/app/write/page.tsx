@@ -72,19 +72,11 @@ const WritePage = () => {
     router.push("/");
   }
 
-  if (body.img) {
-    url = getCldImageUrl({
-      width: 600,
-      height: 600,
-      src: body.img,
-    });
-  }
-
   return (
     <div>
       {body.img && (
         <div className="relative w-fit group cursor-pointer">
-          <img src={url} />
+          <img src={body.img} />
           <div
             className="transition-opacity
             opacity-0 group-hover:opacity-100 delay-200 bg-[#0000008c] h-10 w-full 
@@ -155,7 +147,10 @@ const WritePage = () => {
                   result?.info !== null &&
                   "public_id" in result.info
                 ) {
-                  handleChange("img", String(result?.info?.public_id));
+                  let url = getCldImageUrl({
+                    src: result?.info?.public_id,
+                  });
+                  handleChange("img", url);
                 } else {
                   console.log("Error", result?.info);
                 }

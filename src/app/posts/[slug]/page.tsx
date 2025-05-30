@@ -52,7 +52,7 @@ const SinglePage = async ({ params }: { params: any }) => {
         </div>
         {data.img && (
           <div className="flex-1 h-[350px] relative  max-lg:hidden">
-            <img src={imgUrl} alt="" className="object-cover" />
+            <img src={data.img} alt="" className="object-cover" />
           </div>
         )}
       </div>
