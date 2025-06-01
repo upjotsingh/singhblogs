@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import prisma from "@/utils/connect"
+import { ApiResponse } from "@/utils/utils"
 
 export const GET = async (req) => {
     const { searchParams } = new URL(req.url)
@@ -17,9 +18,8 @@ export const GET = async (req) => {
             categories = await prisma.category.findMany()
 
         }
-        return new NextResponse(JSON.stringify(categories, { status: 200 }))
+        return ApiResponse(categories, 200)
     } catch (error) {
-        console.log(error)
-        return new NextResponse(JSON.stringify({ message: "Something went wrong" }, { status: 500 }))
+        return ApiResponse({ message: "Something went wrong" }, 500)
     }
 }

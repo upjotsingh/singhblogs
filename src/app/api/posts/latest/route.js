@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server"
+
 import prisma from '@/utils/connect'
+import { ApiResponse } from "@/utils/utils";
 
 export const GET = async () => {
 
@@ -9,9 +10,9 @@ export const GET = async () => {
             include: { user: true }
         });
 
-        return new NextResponse(JSON.stringify(post, { status: 200 }))
+        return ApiResponse(post, 200)
     } catch (error) {
         console.log(error)
-        return new NextResponse(JSON.stringify({ message: "Something went wrong" }, { status: 500 }))
+        return ApiResponse({ message: "Something went wrong" }, 500)
     }
 }

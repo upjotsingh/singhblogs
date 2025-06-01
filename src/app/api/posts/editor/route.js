@@ -1,14 +1,15 @@
-import { NextResponse } from "next/server"
+
 import prisma from '@/utils/connect'
+import { ApiResponse } from "@/utils/utils";
 
 export const GET = async () => {
 
     try {
         const posts = await prisma.post.findMany({ where: { pickByEditor: true }, include: { user: true } });
 
-        return new NextResponse(JSON.stringify(posts, { status: 200 }))
+        return ApiResponse(posts, 200)
     } catch (error) {
         console.log(error)
-        return new NextResponse(JSON.stringify({ message: "Something went wrong" }, { status: 500 }))
+        return ApiResponse({ message: "Something went wrong" }, 500)
     }
 }

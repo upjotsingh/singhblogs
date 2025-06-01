@@ -8,20 +8,18 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.bubble.css";
 import { destroyImg } from "../../utils/cloudinary";
 import dynamic from "next/dynamic";
+import { submitPost } from "@/services/usePosts";
 
 const WritePage = () => {
   const { status } = useSession();
-  // const ReactQuill=dynamic(()=>import('react-quill-new'),{ssr:false})
+  const { savePost, isPostLoading, post, postError } = submitPost();
   const router = useRouter();
-  let url = "";
   const [file, setFile] = useState<any | null>(null);
   const [open, setOpen] = useState<boolean>(false);
-  const [value, setValue] = useState<string>("");
   const [body, setBody] = useState<Post>({
     title: "",
     desc: "",
     img: "",
-    cat: null,
     catSlug: "",
   });
 
@@ -47,20 +45,21 @@ const WritePage = () => {
       .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
-    const res = await fetch("/api/posts", {
-      method: "POST",
-      body: JSON.stringify({
+    try {
+      const res = await savePost({
         title: body.title,
         desc: body.desc,
         img: body.img,
         slug: slugify(body.title),
-        catSlug: body.catSlug || "style", //If not selected, choose the general category
-      }),
-    });
+        catSlug: body.catSlug || "style",
+      });
 
-    if (res.status === 200) {
-      const data = await res.json();
-      router.push(`/posts/${data.slug}`);
+      if (res.status === 200) {
+        const data = res.post;
+        router.push(`/posts/${data.slug}`);
+      }
+    } catch (error) {
+      console.log("Error", error);
     }
   };
 

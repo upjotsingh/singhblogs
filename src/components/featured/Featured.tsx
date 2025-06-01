@@ -6,7 +6,6 @@ import React from "react";
 const Featured = () => {
   const { post, isLoading, isError } = getLatestPost();
 
-  console.log();
   return (
     <div className="mt-8">
       <h1 className="text-8xl max-xl:text-7xl max-lg:text-6xl max-md:text-5xl max-sm:text-4xl font-light">
@@ -29,7 +28,9 @@ const Featured = () => {
               <h1 className="text-4xl">{post?.title}</h1>
               <div
                 className="font-light text-text_color_soft"
-                dangerouslySetInnerHTML={{ __html: post?.desc || <></> }}
+                dangerouslySetInnerHTML={{
+                  __html: post?.desc || <>Loading...</>,
+                }}
               />
               <button className="px-5 py-3 border-none rounded-md w-max bg-soft_background">
                 Read More

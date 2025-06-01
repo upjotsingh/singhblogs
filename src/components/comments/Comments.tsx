@@ -1,38 +1,27 @@
 "use client";
 
+import { getComments, postComment } from "@/services/useComments";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import useSWR from "swr";
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  const data = await res.json();
-
-  if (!res.ok) {
-    throw new Error(data.message);
-  }
-  return data;
-};
 
 const Comments = ({ postSlug }: { postSlug: string }) => {
   const { status } = useSession();
-  const { data, mutate, isLoading } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
-    fetcher
-  );
-
+  const { comments, isError, isLoading, mutate } = getComments(postSlug);
+  const { post, postError, isPostLoading, comment } = postComment();
   const [desc, setDesc] = useState<string>("");
 
   const handleSubmit = async () => {
-    console.log("here");
-    await fetch("/api/comments", {
-      method: "POST",
-      body: JSON.stringify({ desc, postSlug }),
-    });
-    mutate();
-    setDesc("");
+    try {
+      const res = await post({ desc, postSlug });
+      if (res.status == 200) {
+        mutate();
+        setDesc("");
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
 
   return (
@@ -57,7 +46,7 @@ const Comments = ({ postSlug }: { postSlug: string }) => {
         <Link href={"/"}>Login to write commmnt</Link>
       )}
       <div className="mt-[50px]">
-        {data?.map((item: any) => (
+        {comments?.map((item: any) => (
           <div className="mb-[50px]" key={item.id}>
             <div className="flex items-center gap-5 mb-5">
               {item.user.image && (

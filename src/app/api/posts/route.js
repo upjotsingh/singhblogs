@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server"
+
 import prisma from '@/utils/connect'
 import { getAuthSession } from "@/utils/auth"
+import { ApiResponse } from "@/utils/utils"
 
 export const GET = async (req) => {
 
@@ -14,9 +15,9 @@ export const GET = async (req) => {
 
     try {
         const [posts, count] = await prisma.$transaction([prisma.post.findMany(query), prisma.post.count({ where: query.where })])
-        return new NextResponse(JSON.stringify({ posts, count }, { status: 200 }))
+        return ApiResponse({ posts, count }, 200)
     } catch (error) {
-        return new NextResponse(JSON.stringify({ message: 'Something went wrong' }, { status: 500 }))
+        return ApiResponse({ message: 'Something went wrong' }, 500)
     }
 }
 
@@ -24,13 +25,13 @@ export const GET = async (req) => {
 export const POST = async (req) => {
     const session = await getAuthSession()
     if (!session) {
-        return new NextResponse(JSON.stringify({ message: 'Not Authenticated' }, { status: 401 }))
+        return ApiResponse({ message: 'Not Authenticated' }, 401)
     }
     try {
         const body = await req.json()
         const post = await prisma.post.create({ data: { ...body, userEmail: session.user.email } })
-        return new NextResponse(JSON.stringify(post, { status: 200 }))
+        return ApiResponse({ post, status: 200 }, 200)
     } catch (error) {
-        return new NextResponse(JSON.stringify({ message: 'Something went wrong' }, { status: 500 }))
+        return ApiResponse({ message: 'Something went wrong: ' + error, status: 500 }, 500)
     }
 }
