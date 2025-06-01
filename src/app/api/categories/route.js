@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+
 import prisma from "@/utils/connect"
 import { ApiResponse } from "@/utils/utils"
 
