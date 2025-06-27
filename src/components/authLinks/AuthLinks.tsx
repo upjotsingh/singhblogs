@@ -38,9 +38,7 @@ const AuthLinks = () => {
           className="flex flex-col items-center justify-center gap-[50px] absolute top-[100px] left-0 bg-background
     text-3xl h-[calc(100vh-100px)] w-[100%]"
         >
-          <Link href="/">Homepage</Link>
-          <Link href="/">About</Link>
-          <Link href="/">Contact</Link>
+          <Link href="/">Home</Link>
           {status === "unauthenticated" ? (
             <Link href="/">Login</Link>
           ) : (

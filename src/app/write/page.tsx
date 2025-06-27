@@ -9,10 +9,13 @@ import "react-quill-new/dist/quill.bubble.css";
 import { destroyImg } from "../../utils/cloudinary";
 import dynamic from "next/dynamic";
 import { submitPost } from "@/services/usePosts";
+import { getCategories } from "@/services/useCategory";
+import { captilizeFirstLetter } from "@/utils/utils";
 
 const WritePage = () => {
   const { status } = useSession();
   const { savePost, isPostLoading, post, postError } = submitPost();
+  const { category, isError, isLoading } = getCategories();
   const router = useRouter();
   const [file, setFile] = useState<any | null>(null);
   const [open, setOpen] = useState<boolean>(false);
@@ -74,8 +77,8 @@ const WritePage = () => {
   return (
     <div>
       {body.img && (
-        <div className="relative w-fit group cursor-pointer">
-          <img src={body.img} />
+        <div className="relative w-fit group h-[500px] cursor-pointer">
+          <Image src={body.img} alt="p1" fill className="object-cover" />
           <div
             className="transition-opacity
             opacity-0 group-hover:opacity-100 delay-200 bg-[#0000008c] h-10 w-full 
@@ -92,80 +95,67 @@ const WritePage = () => {
           </div>
         </div>
       )}
+      <div className="p-[20px]">
+        <CldUploadWidget
+          signatureEndpoint="/api/sign-image"
+          // uploadPreset="upjotblogs"
+          onSuccess={(result, { widget }) => {
+            if (
+              typeof result?.info === "object" &&
+              result?.info !== null &&
+              "public_id" in result.info
+            ) {
+              let url = getCldImageUrl({
+                src: result?.info?.public_id,
+              });
+              handleChange("img", url);
+            } else {
+              console.log("Error", result?.info);
+            }
+            widget?.close();
+            console.log(result?.info);
+          }}
+          onError={(err) => {
+            console.log(err);
+          }}
+        >
+          {({ open }) => {
+            return (
+              <div className="flex items-center gap-3">
+                <button
+                  className="w-8 h-8 rounded-[50%] bg-transparent border-[1px] border-text_color_soft flex justify-center items-center cursor-pointer"
+                  onClick={() => open()}
+                >
+                  <Image src="/plus.png" alt="" width={16} height={16} />
+                </button>
+                <p>Upload Image</p>
+              </div>
+            );
+          }}
+        </CldUploadWidget>
+      </div>
+
       <input
         type="text"
         placeholder="Title"
-        className="p-[50px] text-6xl border-none outline-none bg-transparent text-text_color"
+        className="py-[10px] px-[20px] text-6xl border-none outline-none bg-transparent text-text_color"
         onChange={(e) => handleChange("title", e.target.value)}
       />
-      <select
-        className="mb-12 ml-12 p-[10px 20px] w-max"
-        onChange={(e) => handleChange("catSlug", e.target.value)}
-      >
-        <option value="style">style</option>
-        <option value="fashion">fashion</option>
-        <option value="food">food</option>
-        <option value="culture">culture</option>
-        <option value="travel">travel</option>
-        <option value="coding">coding</option>
-      </select>
-      <div className="flex gap-5 h-[700px] relative">
-        <button
-          className="w-9 h-9 rounded-[50%] bg-transparent border-[1px] border-text_color_soft flex justify-center items-center cursor-pointer"
-          onClick={() => setOpen(!open)}
-        >
-          <Image src="/plus.png" alt="" width={16} height={16} />
-        </button>
-        {open && (
-          <div className="flex gap-5 bg-background absolute z-[999] w-full left-[50px]">
-            <input
-              className="hidden"
-              type="file"
-              id="image"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-            <button className="w-9 h-9 rounded-[50%] bg-transparent border-[1px] border-text_color_soft flex justify-center items-center cursor-pointer">
-              <label htmlFor="image">
-                <Image src="/image.png" alt="" width={16} height={16} />
-              </label>
-            </button>
-            <button className="w-9 h-9 rounded-[50%] bg-transparent border-[1px] border-text_color_soft flex justify-center items-center cursor-pointer">
-              <Image src="/external.png" alt="" width={16} height={16} />
-            </button>
-            <button className="w-9 h-9 rounded-[50%] bg-transparent border-[1px] border-text_color_soft flex justify-center items-center cursor-pointer">
-              <Image src="/video.png" alt="" width={16} height={16} />
-            </button>
-            {/* <button onClick={uploadFile}> Submit</button> */}
+      {isLoading && <div>Loading Categories....</div>}
+      {category?.length && (
+        <div className="p-[20px]">
+          <select
+            className="mb-12 p-[10px 20px] w-max border"
+            onChange={(e) => handleChange("catSlug", e.target.value)}
+          >
+            {category?.map((cat) => (
+              <option value={cat.slug}>{captilizeFirstLetter(cat.slug)}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
-            <CldUploadWidget
-              signatureEndpoint="/api/sign-image"
-              // uploadPreset="upjotblogs"
-              onSuccess={(result, { widget }) => {
-                if (
-                  typeof result?.info === "object" &&
-                  result?.info !== null &&
-                  "public_id" in result.info
-                ) {
-                  let url = getCldImageUrl({
-                    src: result?.info?.public_id,
-                  });
-                  handleChange("img", url);
-                } else {
-                  console.log("Error", result?.info);
-                }
-                widget?.close();
-                console.log(result?.info);
-              }}
-              onError={(err) => {
-                console.log(err);
-              }}
-            >
-              {({ open }) => {
-                return <button onClick={() => open()}>Upload</button>;
-              }}
-            </CldUploadWidget>
-          </div>
-        )}
+      <div className="flex gap-5 h-[700px] relative">
         <ReactQuill
           className="w-full text-text_color"
           theme="bubble"

@@ -18,10 +18,13 @@ export function getPost(postSlug: string) {
 
 // Get Latest 1 Post
 export function getLatestPost() {
-  const { data, error, isLoading } = useSWR<Post>("/api/posts/latest", getData);
+  const { data, error, isLoading } = useSWR<Posts>(
+    "/api/posts?type=latest",
+    getData
+  );
 
   return {
-    post: data,
+    post: data?.posts?.[0],
     isLoading,
     isError: error,
   };
@@ -44,13 +47,13 @@ export function getPosts(page: number, cat: string | null) {
 
 // Get Posts picked by editor
 export function getPostsPickedByEditor() {
-  const { data, error, isLoading } = useSWR<Post[]>(
-    `/api/posts/editor`,
+  const { data, error, isLoading } = useSWR<Posts>(
+    `/api/posts?type=editor`,
     getData
   );
 
   return {
-    posts: data,
+    posts: data?.posts,
     isLoading,
     isError: error,
   };

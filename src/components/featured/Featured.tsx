@@ -1,6 +1,7 @@
 "use client";
 import { getLatestPost } from "@/services/usePosts";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Featured = () => {
@@ -32,9 +33,11 @@ const Featured = () => {
                   __html: post?.desc || <>Loading...</>,
                 }}
               />
-              <button className="px-5 py-3 border-none rounded-md w-max bg-soft_background">
-                Read More
-              </button>
+              <Link href={`/posts/${post?.slug}`}>
+                <button className="px-5 py-3 border-none rounded-md w-max bg-soft_background">
+                  Read More
+                </button>
+              </Link>
             </div>
           </>
         )}

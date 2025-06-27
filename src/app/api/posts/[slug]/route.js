@@ -11,8 +11,8 @@ export const GET = async (req, { params }) => {
             data: { views: { increment: 1 } },
             include: { user: true }
         })
-        return ApiResponsee(post, 200)
+        return ApiResponse(post, 200)
     } catch (error) {
-        return ApiResponse({ message: 'Something went wrong' }, 500)
+        return ApiResponse({ message: 'Something went wrong,' + error }, 500)
     }
 }

@@ -16,7 +16,7 @@ const Post = ({ slug }: { slug: string }) => {
             {post?.title}
           </h1>
           <div className="flex items-center gap-[20px]">
-            {post?.user.image && (
+            {post?.user?.image && (
               <div className="w-[50px] h-[50px] relative">
                 <Image
                   src={post?.user.image}
@@ -28,8 +28,8 @@ const Post = ({ slug }: { slug: string }) => {
             )}
 
             <div className="flex flex-col gap-[5px] text-text_color_soft">
-              <span className="text-xl font-medium">{post?.user.name}</span>
-              <span>{post?.createdAt.substring(0, 10)}</span>
+              <span className="text-xl font-medium">{post?.user?.name}</span>
+              <span>{post?.createdAt?.substring(0, 10)}</span>
             </div>
           </div>
         </div>

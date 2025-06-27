@@ -37,7 +37,7 @@ const Footer = () => {
     <div className="mt-[50px] px-0 py-5 flex items-center justify-between text-text_color_soft max-md:flex-col max-md:gap-[30px]">
       <div className="flex-[1] flex flex-col gap-[14px]">
         <div className="flex items-center gap-[10px]">
-          <Image src={"/logo.png"} alt="logo" height={50} width={50} />
+          <Image src={"/portfolio.png"} alt="logo" height={50} width={50} />
           <h1 className="text-2xl">UpjotBlog</h1>
         </div>
         <p className="font-light">

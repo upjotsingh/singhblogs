@@ -7,17 +7,33 @@ export const GET = async (req) => {
 
     const { searchParams } = new URL(req.url)
 
-    const page = searchParams.get('page')
+    const page = searchParams.get('page') || 1
     const cat = searchParams.get('cat')
-
+    const type = searchParams.get('type')
     const POST_PER_PAGE = 2
-    const query = { take: POST_PER_PAGE, skip: POST_PER_PAGE * (page - 1), where: { ...(cat && { catSlug: cat }) } }
+    var query = { take: POST_PER_PAGE, skip: POST_PER_PAGE * (page - 1), where: { ...(cat && { catSlug: cat }) } }
+
+
+    if (type == "editor") {
+        query = { where: { pickByEditor: true }, include: { user: true } }
+    }
+    if (type == 'latest') {
+
+        query = {
+            take: 1,
+            orderBy: { createdAt: 'desc' },
+            include: { user: true },
+        }
+    }
+
 
     try {
-        const [posts, count] = await prisma.$transaction([prisma.post.findMany(query), prisma.post.count({ where: query.where })])
+        const [posts, count] = type == 'latest' ? [await prisma.post.findMany(query), 1] : await prisma.$transaction([
+            prisma.post.findMany(query),
+            prisma.post.count({ where: query.where })])
         return ApiResponse({ posts, count }, 200)
     } catch (error) {
-        return ApiResponse({ message: 'Something went wrong' }, 500)
+        return ApiResponse({ message: 'Something went wrong - ' + error.message + ' Query: ' + JSON.stringify(query) }, 500)
     }
 }
 
