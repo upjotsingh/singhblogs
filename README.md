@@ -27,6 +27,14 @@ The blog is a clean, developer-friendly platform designed to highlight thoughtfu
 - 📱 Fully responsive layout
 
 
+## 🛠️  Technlogies
+
+ - Next.js, React.js
+ - JavaScript, TypeScript, HTML, Tailwind CSS
+ - Mongo DB, Prisma
+ - Cloudinary for storage
+
+
 ##
 
 First, run the development server:
