@@ -41,6 +41,22 @@ pnpm dev
 bun dev
 ```
 
+```bash
+below env variable required
+
+GOOGLE_ID = <google_id>
+GOOGLE_SECRET = <google_seceret>
+
+NEXTAUTH_URL= http://localhost:3000
+NEXTAUTH_SECRET= <next_auth_seceret>
+
+DATABASE_URL= <database_url> 
+
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME= <cloudinary_cloud_name>
+NEXT_PUBLIC_CLOUDINARY_API_KEY= <cloudinary_api_key>
+NEXT_PUBLIC_CLOUDINARY_API_SECRET= <cloudinary_seceret>
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ##
