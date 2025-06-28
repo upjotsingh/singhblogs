@@ -26,8 +26,9 @@ The blog is a clean, developer-friendly platform designed to highlight thoughtfu
 - 🗂 Categories
 - 📱 Fully responsive layout
 
+##
 
-## 🛠️  Technlogies
+## 🛠️  Technologies
 
  - Next.js, React.js
  - JavaScript, TypeScript, HTML, Tailwind CSS
