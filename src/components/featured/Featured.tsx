@@ -27,12 +27,16 @@ const Featured = () => {
             </div>
             <div className="flex-1 flex flex-col gap-5">
               <h1 className="text-4xl">{post?.title}</h1>
-              <div
-                className="font-light text-text_color_soft"
-                dangerouslySetInnerHTML={{
-                  __html: post?.desc || <>Loading...</>,
-                }}
-              />
+              <div className="h-64 overflow-hidden relative">
+                <div
+                  className="font-light text-text_color_soft "
+                  dangerouslySetInnerHTML={{
+                    __html: post?.desc || <>Loading...</>,
+                  }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white via-white to-transparent"></div>
+              </div>
+
               <Link href={`/posts/${post?.slug}`}>
                 <button className="px-5 py-3 border-none rounded-md w-max bg-soft_background">
                   Read More
