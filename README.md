@@ -7,11 +7,15 @@ The blog is a clean, developer-friendly platform designed to highlight thoughtfu
 
 
 * *A focused and elegant layout for writing, uploading image and then finally PUBLISH!!*
-<img src="https://github.com/user-attachments/assets/ca0f2446-e247-47a8-9060-db87f1087ab8" alt="Write Blog" width="600" style="border: 1px solid #747474; border-radius: 8px;" />
+
+
+<img src="https://github.com/user-attachments/assets/dbee4aa1-f740-4fc8-a681-60d9ca23249f" alt="Write Blog" width="600" style="border: 1px solid #747474; border-radius: 8px;" />
 
 ---
 
 * *Landing page for the blog*
+
+
 ![HomePage](https://github.com/user-attachments/assets/823c362d-5477-4ea5-90eb-d15409ffaacb)
 ## ⚙️ Features
 
