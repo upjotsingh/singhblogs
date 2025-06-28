@@ -4,13 +4,14 @@ The blog is a clean, developer-friendly platform designed to highlight thoughtfu
 
 ## 📸 Screenshots
 
-
+---
+*A focused and elegant layout for writing, uploading image and then finally PUBLISH!!*
 ![Write Blog](https://github.com/user-attachments/assets/ca0f2446-e247-47a8-9060-db87f1087ab8)
 
+---
 
+*Landing page for the blog*
 ![HomePage](https://github.com/user-attachments/assets/823c362d-5477-4ea5-90eb-d15409ffaacb)
-
-
 ## ⚙️ Features
 
 - 🧠 Write blog posts 
